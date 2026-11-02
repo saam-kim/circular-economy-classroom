@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>경제 활동의 순환</title>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="viewport-wrapper">
+    <div class="simulator-stage" id="simulator-stage">
+      <!-- Top Header -->
+      <header class="simulator-header">
+        <div class="header-brand">
+          <div class="header-logo" aria-hidden="true">
+            <svg viewBox="0 0 56 36" width="100%" height="100%" fill="none">
+              <!-- Interlocking circulation rings matching approved design -->
+              <circle cx="19" cy="18" r="11.5" stroke="#4D8AF0" stroke-width="5.2" />
+              <circle cx="37" cy="18" r="11.5" stroke="#1E63D6" stroke-width="5.2" />
+              <path d="M 27.5 10.5 A 11.5 11.5 0 0 1 30.5 18" stroke="#4D8AF0" stroke-width="5.2" stroke-linecap="round" />
+              <polygon points="19,3.2 25,7.2 19,10.8" fill="#4D8AF0" />
+              <polygon points="37,32.8 31,28.8 37,25.2" fill="#1E63D6" />
+            </svg>
+          </div>
+          <h1 class="header-title">경제 활동의 순환</h1>
+        </div>
+
+        <button type="button" id="btn-guide" class="btn-header-guide" aria-haspopup="dialog" aria-controls="guide-modal">
+          <svg class="btn-header-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9.5" />
+            <path d="M9.5 9.2a2.6 2.6 0 0 1 5 .8c0 1.7-2.5 2.2-2.5 3.8" />
+            <circle cx="12" cy="17.2" r="0.6" fill="currentColor" />
+          </svg>
+          <span>활동 안내</span>
+        </button>
+      </header>
+
+      <!-- Main 70:30 Split Workspace -->
+      <main class="simulator-workspace">
+        <!-- Left ~70%: Circular Flow Diagram Panel -->
+        <section id="diagram-panel" class="panel diagram-panel" aria-label="경제 활동 순환 도식 영역"></section>
+
+        <!-- Right ~30%: Scenario Selection & Control Panel -->
+        <aside id="control-panel" class="panel control-panel" aria-label="상황 선택 및 조작 영역"></aside>
+      </main>
+
+      <!-- Activity & Lesson Guide Modal -->
+      <div id="guide-modal" class="guide-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="guide-modal-title" hidden>
+        <div class="guide-modal-card">
+          <div class="guide-modal-header">
+            <div class="guide-modal-title-wrap">
+              <span class="guide-modal-badge">수업 가이드</span>
+              <h2 id="guide-modal-title" class="guide-modal-title">경제 활동의 순환 활동 안내</h2>
+            </div>
+            <button type="button" id="btn-guide-close" class="guide-modal-close" aria-label="닫기">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="guide-modal-body">
+            <section class="guide-section">
+              <h3 class="guide-section-title">활동 순서</h3>
+              <ol class="guide-step-list">
+                <li class="guide-step-item">
+                  <span class="guide-step-num">1</span>
+                  <div class="guide-step-text">
+                    <strong>상황 선택 및 거래 실행</strong>
+                    <p>오른쪽에서 일상 속 경제 활동 카드를 고른 뒤 <b>▶ 거래 실행</b> 버튼을 누릅니다.</p>
+                  </div>
+                </li>
+                <li class="guide-step-item">
+                  <span class="guide-step-num">2</span>
+                  <div class="guide-step-text">
+                    <strong>거래 시장 선택</strong>
+                    <p>해당 거래가 <b>생산물 시장</b>과 <b>생산 요소 시장</b> 중 어느 시장에서 이루어지는지 선택합니다.</p>
+                  </div>
+                </li>
+                <li class="guide-step-item">
+                  <span class="guide-step-num is-real">3</span>
+                  <div class="guide-step-text">
+                    <strong>실물의 흐름 확인 (파란색)</strong>
+                    <p>재화·서비스나 생산 요소를 <b>누가 만들어(빌려) 주는지</b>(기업·가계) 선택해 실물의 이동을 확인합니다.</p>
+                  </div>
+                </li>
+                <li class="guide-step-item">
+                  <span class="guide-step-num is-money">4</span>
+                  <div class="guide-step-text">
+                    <strong>화폐의 흐름 확인 (분홍색)</strong>
+                    <p>그 대가로 <b>돈을 누가 지불하는지</b>(기업·가계) 선택해 화폐의 이동과 순환을 완성합니다.</p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+
+            <section class="guide-section guide-concept-box">
+              <h3 class="guide-section-title">핵심 개념 포인트</h3>
+              <ul class="guide-concept-list">
+                <li><b>생산물 시장</b>: 생활에 필요한 <b>재화</b>(물건)와 <b>서비스</b>가 거래되는 시장</li>
+                <li><b>생산 요소 시장</b>: 생산에 필요한 <b>노동, 토지, 자본</b>(상가 건물·기계 설비 등)이 거래되는 시장</li>
+                <li><b>순환의 원리</b>: <span class="text-real">실물의 흐름(파란색)</span>과 <span class="text-money">화폐의 흐름(분홍색)</span>은 시장을 매개로 <b>서로 반대 방향</b>으로 순환합니다.</li>
+              </ul>
+            </section>
+          </div>
+
+          <div class="guide-modal-footer">
+            <button type="button" id="btn-guide-confirm" class="btn btn-primary guide-confirm-btn">확인</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data/scenarios.js" defer></script>
+  <script src="js/components/icons.js" defer></script>
+  <script src="js/components/cardIllustrations.js" defer></script>
+  <script src="js/components/diagram.js" defer></script>
+  <script src="js/components/controls.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

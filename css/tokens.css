@@ -1,0 +1,50 @@
+:root {
+  /* Page & Surface Colors */
+  --bg-canvas: #f3f6fa;
+  --bg-panel: #ffffff;
+  --bg-node: #f3f5f8;
+  --bg-card: #ffffff;
+  --bg-card-selected: #f8fbff;
+  --bg-button-secondary: #f8fafc;
+  --bg-button-secondary-hover: #f1f5f9;
+  --bg-label-inactive: #eaeef3;
+
+  /* Border Colors */
+  --border-panel: #e2e8f0;
+  --border-node: #b8c2cf;
+  --border-card: #e5e9f0;
+  --border-card-hover: #94a3b8;
+  --border-card-selected: #1d82f5;
+  --border-button-secondary: #cbd5e1;
+  --border-divider: #e8ecf2;
+
+  /* Semantic Flow Colors (Strict Specification) */
+  --color-real-flow: #1d82f5;
+  --color-real-flow-hover: #156fda;
+  --color-money-flow: #f54380;
+  --color-inactive-flow: #cbd3de;
+
+  /* Text Colors */
+  --text-primary: #111827;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-group-heading: #163f7a;
+  --text-card-selected: #1353b5;
+  --text-on-accent: #ffffff;
+
+  /* Layout Proportions (Temporary 70:30 per Spec, easily replaceable) */
+  --stage-max-width: 1600px;
+  --stage-aspect-ratio: 16 / 9;
+  --left-panel-width: 68.5%;
+  --right-panel-width: 31.5%;
+  --panel-gap: 18px;
+  --panel-radius: 16px;
+
+  /* Typography */
+  --font-sans: "Pretendard", "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+
+  /* Shadows */
+  --shadow-panel: 0 2px 10px rgba(15, 23, 42, 0.03);
+  --shadow-card-selected: 0 0 0 1px #1d82f5, 0 4px 12px rgba(29, 130, 245, 0.14);
+  --shadow-button-primary: 0 3px 10px rgba(29, 130, 245, 0.25);
+}
