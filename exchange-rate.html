@@ -430,23 +430,26 @@
   .dc-content .fx-trail-chip.is-final-down{background:var(--accent-wash);border-color:var(--accent);color:var(--accent)}
   .dc-content .fx-trail-arrow{color:var(--muted);font-size:15px;font-weight:800}
 
-  /* 질문 등장 시 시뮬레이션 패널 위에 깔리는 반투명 검정 배경과 질문 패널 (교실 핵심 질문 22~24px, 버튼 18px·56px) */
-  .dc-content .fx-sim-backdrop{position:absolute;inset:0;z-index:6;background:rgba(20,26,38,0.54);display:flex;align-items:center;justify-content:center;padding:24px;animation:fx-fade .2s ease-out}
+  /* 질문 등장 시 그래프를 가리지 않는 하단 플로팅 독(Floating Dock) 질문 카드 (교실 핵심 질문 21px, 버튼 18px·54px) */
+  .dc-content .fx-sim-backdrop{position:absolute;inset:0;z-index:6;background:linear-gradient(180deg,rgba(15,23,42,0) 0%,rgba(15,23,42,0) 58%,rgba(37,99,235,0.08) 100%);display:flex;align-items:flex-end;justify-content:center;padding:18px 28px 20px;pointer-events:none;animation:fx-fade .2s ease-out}
   .dc-content .fx-sim-backdrop[hidden]{display:none}
-  .dc-content .fx-sim-modal{width:min(620px,100%);background:var(--surface);border:2.5px solid var(--accent);border-radius:22px;padding:26px 28px;box-shadow:0 22px 54px rgba(15,23,42,0.38);display:grid;gap:18px;animation:fx-pop .24s ease-out}
-  .dc-content .fx-sim-modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .dc-content .fx-sim-stepbadge{display:inline-flex;align-items:center;justify-content:center;padding:6px 14px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:800;white-space:nowrap}
-  .dc-content .fx-sim-factor-tag{font-size:16px;font-weight:800;color:var(--muted)}
-  .dc-content .fx-sim-q{margin:0;font-size:22px;font-weight:800;color:var(--ink);line-height:1.5;word-break:keep-all;text-align:center;padding:6px 0;white-space:pre-line}
-  .dc-content .fx-sim-choices{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .dc-content .fx-sim-btn{font:inherit;min-height:58px;padding:12px 20px;border:2px solid var(--line);border-radius:14px;background:var(--soft);color:var(--ink);cursor:pointer;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:all .15s}
+  .dc-content .fx-sim-modal{pointer-events:auto;width:min(900px,100%);background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);border:2.5px solid var(--accent);border-radius:20px;padding:16px 22px;box-shadow:0 14px 36px rgba(37,99,235,0.18),0 4px 12px rgba(15,23,42,0.08);display:grid;gap:10px;animation:fx-pop .24s ease-out}
+  .dc-content.theme-dark .fx-sim-modal{background:rgba(23,31,46,0.96)}
+  .dc-content .fx-sim-dock-main{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .dc-content .fx-sim-dock-info{flex:1 1 360px;min-width:0;display:grid;gap:6px}
+  .dc-content .fx-sim-modal-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .dc-content .fx-sim-stepbadge{display:inline-flex;align-items:center;justify-content:center;padding:4px 12px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:14.5px;font-weight:800;white-space:nowrap}
+  .dc-content .fx-sim-factor-tag{font-size:15px;font-weight:800;color:var(--muted)}
+  .dc-content .fx-sim-q{margin:0;font-size:20.5px;font-weight:800;color:var(--ink);line-height:1.4;word-break:keep-all;text-align:left;padding:0}
+  .dc-content .fx-sim-choices{flex:0 0 auto;display:grid;grid-template-columns:repeat(2,minmax(176px,1fr));gap:10px}
+  .dc-content .fx-sim-btn{font:inherit;min-height:54px;padding:10px 20px;border:2px solid var(--line);border-radius:14px;background:var(--soft);color:var(--ink);cursor:pointer;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:all .15s}
   .dc-content .fx-sim-btn:hover{border-color:var(--accent);background:var(--accent-wash);color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 14px var(--shadow)}
   .dc-content .fx-sim-btn.is-wrong{border-color:var(--warning);background:var(--warning-wash);color:var(--warning);animation:fx-shake .34s ease}
-  .dc-content .fx-sim-feedback{margin:0;padding:12px 16px;border-radius:12px;font-size:16px;font-weight:700;line-height:1.5;word-break:keep-all;text-align:center}
+  .dc-content .fx-sim-feedback{margin:0;padding:9px 14px;border-radius:11px;font-size:15.5px;font-weight:700;line-height:1.45;word-break:keep-all;text-align:left}
   .dc-content .fx-sim-feedback.is-wrong{background:var(--warning-wash);border:1.5px solid var(--warning);color:var(--warning)}
 
   /* 애니메이션 진행 중 또는 탐구 완료 시 하단 안내 카드 (본문 18px) */
-  .dc-content .fx-sim-banner{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);z-index:5;width:min(760px,calc(100% - 36px));background:var(--surface);border:2.5px solid var(--success);border-radius:18px;padding:14px 22px;box-shadow:0 10px 28px var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;animation:fx-pop .24s ease-out}
+  .dc-content .fx-sim-banner{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:5;width:min(880px,calc(100% - 56px));background:var(--surface);border:2.5px solid var(--success);border-radius:18px;padding:14px 22px;box-shadow:0 12px 30px rgba(21,128,61,0.16),0 4px 12px var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;animation:fx-pop .24s ease-out}
   .dc-content .fx-sim-banner[hidden]{display:none}
   .dc-content .fx-sim-banner-text{margin:0;font-size:18px;font-weight:800;color:var(--ink);line-height:1.45;word-break:keep-all}
   .dc-content .fx-sim-banner-sub{display:block;font-size:15.5px;font-weight:700;color:var(--success);margin-top:4px}
@@ -625,9 +628,9 @@
       "content": {
         "usage": [
           "오른쪽 제어판에서 탐구할 요인(8가지 교과서 요인)과 조건(증가/감소)을 고른 뒤 [시작] 버튼을 누릅니다.",
-          "[시작]을 누르면 그래프 위에 반투명 배경과 함께 1단계 질문(외화의 수요 / 공급 선택) 패널이 등장합니다.",
-          "정답을 고르면 질문 창이 잠시 닫히고 그래프에서 해당 곡선이 강조되는 애니메이션이 나타난 뒤, 다음 단계 질문 패널이 열립니다(틀리면 '다시 생각해 보세요' 안내 표시).",
-          "[증가/감소 선택] → [곡선의 이동 방향(왼쪽/오른쪽) 선택] → [환율 변화 방향(상승/하락) 선택] 순서로 답하며 각 단계의 그래프 애니메이션을 확인합니다.",
+          "[시작]을 누르면 그래프가 선명하게 보이는 상태에서 화면 하단에 1단계 질문 카드(외화의 수요 / 공급 선택)가 올라옵니다.",
+          "정답을 고르면 그래프에서 해당 곡선이 강조되는 애니메이션이 나타난 뒤, 다음 단계 질문 카드가 열립니다(틀리면 '다시 생각해 보세요' 안내 표시).",
+          "[증가/감소 선택] → [곡선의 이동 방향(왼쪽/오른쪽) 선택] → [환율 변화 방향(상승/하락) 선택] 순서로 그래프를 직접 관찰하며 답을 고릅니다.",
           "어려운 경우 오른쪽 아래 힌트(?) 아이콘을 누르면 현재 선택한 요인의 교과서 상황 대사와 힌트를 볼 수 있습니다."
         ],
         "stage": {
@@ -2235,7 +2238,7 @@ function createContentEngine(ctx) {
       const stepDefs = {
         1: {
           badge: '질문 1 / 4',
-          q: '‘' + condTitle + '’은(는)\n외화의 수요와 공급 중 무엇에 영향을 미치나요?',
+          q: '‘' + condTitle + '’은(는) 외화의 수요와 공급 중 무엇에 영향을 미치나요?',
           choices: [
             { val: 'demand', label: '외화의 수요' },
             { val: 'supply', label: '외화의 공급' }
@@ -2243,7 +2246,7 @@ function createContentEngine(ctx) {
         },
         2: {
           badge: '질문 2 / 4',
-          q: '‘' + condTitle + '’ 상황은\n' + f.curveLabel + '를 어떻게 변화시키나요?',
+          q: '‘' + condTitle + '’ 상황은 ' + f.curveLabel + '를 어떻게 변화시키나요?',
           choices: [
             { val: 'increase', label: '증가시킨다 ▲' },
             { val: 'decrease', label: '감소시킨다 ▼' }
@@ -2251,7 +2254,7 @@ function createContentEngine(ctx) {
         },
         3: {
           badge: '질문 3 / 4',
-          q: f.curveLabel + '가 ' + (exp.s2 === 'increase' ? '증가' : '감소') + '할 때,\n그래프에서 ' + f.curveLabel + ' 곡선은 어느 방향으로 이동할까요?',
+          q: f.curveLabel + '가 ' + (exp.s2 === 'increase' ? '증가' : '감소') + '할 때, 그래프에서 ' + f.curveLabel + ' 곡선은 어느 방향으로 이동할까요?',
           choices: [
             { val: 'left', label: '← 왼쪽으로 이동' },
             { val: 'right', label: '오른쪽으로 이동 →' }
@@ -2259,7 +2262,7 @@ function createContentEngine(ctx) {
         },
         4: {
           badge: '질문 4 / 4',
-          q: '곡선이 ' + (exp.s3 === 'right' ? '오른쪽' : '왼쪽') + '으로 이동했습니다!\n새로운 균형점(E′)에서 환율은 어떻게 변하나요?',
+          q: '곡선이 ' + (exp.s3 === 'right' ? '오른쪽' : '왼쪽') + '으로 이동했습니다! 새로운 균형점(E′)에서 환율은 어떻게 변하나요?',
           choices: [
             { val: 'up', label: '▲ 환율 상승' },
             { val: 'down', label: '▼ 환율 하락' }
@@ -2284,12 +2287,16 @@ function createContentEngine(ctx) {
         });
 
         const modalKids = [
-          frameH('div', { 'class': 'fx-sim-modal-head' }, [
-            frameH('span', { 'class': 'fx-sim-stepbadge', text: curDef.badge }),
-            frameH('span', { 'class': 'fx-sim-factor-tag', text: f.icon + ' ' + condTitle })
-          ]),
-          frameH('p', { 'class': 'fx-sim-q', text: curDef.q }),
-          frameH('div', { 'class': 'fx-sim-choices', role: 'group', 'aria-label': curDef.q }, choiceBtns)
+          frameH('div', { 'class': 'fx-sim-dock-main' }, [
+            frameH('div', { 'class': 'fx-sim-dock-info' }, [
+              frameH('div', { 'class': 'fx-sim-modal-head' }, [
+                frameH('span', { 'class': 'fx-sim-stepbadge', text: curDef.badge }),
+                frameH('span', { 'class': 'fx-sim-factor-tag', text: f.icon + ' ' + condTitle })
+              ]),
+              frameH('p', { 'class': 'fx-sim-q', text: curDef.q })
+            ]),
+            frameH('div', { 'class': 'fx-sim-choices', role: 'group', 'aria-label': curDef.q }, choiceBtns)
+          ])
         ];
 
         if (st.feedback && st.feedback.step === st.step) {
@@ -2411,12 +2418,16 @@ function createContentEngine(ctx) {
       g.fillText('오른쪽 제어판에서 요인을 고른 뒤 [▶ 시작] 버튼을 눌러 탐구를 시작하세요.', cardX + 26, cardY + 64);
     }
 
-    // 그래프 축 내부 좌표 (큰 글씨가 넉넉하게 들어오도록 여백 확보)
+    // 그래프 축 내부 좌표 (하단 플로팅 질문 독이 떠도 그래프와 축 라벨이 100% 선명하게 보이도록 상단 배치)
+    const hasBottomDock = st.step >= 1;
+    const bottomReserve = hasBottomDock ? 142 : 46;
+    const topStart = st.step === 0 ? 86 : 62;
+    const availH = Math.max(180, cardH - topStart - bottomReserve);
     const maxGraphW = Math.min(cardW - 220, 620);
-    const maxGraphH = Math.max(160, Math.min(cardH - 136, 400));
+    const maxGraphH = Math.max(170, Math.min(availH, 360));
     const gx0 = Math.round(cardX + (cardW - maxGraphW) / 2 + 44);
     const gx1 = gx0 + maxGraphW;
-    const gy0 = Math.round(cardY + 84 + (cardH - 106 - maxGraphH) / 2);
+    const gy0 = Math.round(cardY + topStart + (availH - maxGraphH) / 2);
     const gy1 = gy0 + maxGraphH;
     const gw = gx1 - gx0;
     const gh = gy1 - gy0;
