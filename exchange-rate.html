@@ -2410,7 +2410,7 @@ function createContentEngine(ctx) {
       const tw = g.measureText(moveText).width + 26;
       const bx = cardX + cardW - 26 - tw;
       const by = cardY + 16;
-      g.fillStyle = isDemandTargetHeader ? colors.accentWash : colors.warningWash;
+      g.fillStyle = frameHexRgba(targetColorHeader, 0.12);
       fillRoundRect(g, bx, by, tw, 32, 16);
       g.strokeStyle = targetColorHeader;
       g.lineWidth = 1.8;
