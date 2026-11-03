@@ -26,22 +26,39 @@
           <h1 class="header-title">경제 활동의 순환</h1>
         </div>
 
-        <button type="button" id="btn-guide" class="btn-header-guide" aria-haspopup="dialog" aria-controls="guide-modal">
-          <svg class="btn-header-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="9.5" />
-            <path d="M9.5 9.2a2.6 2.6 0 0 1 5 .8c0 1.7-2.5 2.2-2.5 3.8" />
-            <circle cx="12" cy="17.2" r="0.6" fill="currentColor" />
-          </svg>
-          <span>활동 안내</span>
-        </button>
+        <div class="header-actions">
+          <!-- Courseware 1P / 2P Page Switcher -->
+          <nav class="courseware-pager" aria-label="코스웨어 페이지 전환">
+            <button type="button" id="btn-page-1" class="btn-page-tab is-active" data-page="1" aria-current="page">
+              <span class="page-num-pill">1P</span>
+              <span>모형만 보기</span>
+            </button>
+            <button type="button" id="btn-page-2" class="btn-page-tab" data-page="2">
+              <span class="page-num-pill">2P</span>
+              <span>스토리 애니메이션과 함께 보기</span>
+            </button>
+          </nav>
+
+          <button type="button" id="btn-guide" class="btn-header-guide" aria-haspopup="dialog" aria-controls="guide-modal">
+            <svg class="btn-header-guide-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9.5" />
+              <path d="M9.5 9.2a2.6 2.6 0 0 1 5 .8c0 1.7-2.5 2.2-2.5 3.8" />
+              <circle cx="12" cy="17.2" r="0.6" fill="currentColor" />
+            </svg>
+            <span>활동 안내</span>
+          </button>
+        </div>
       </header>
 
-      <!-- Main 70:30 Split Workspace -->
+      <!-- Main Split Workspace -->
       <main class="simulator-workspace">
-        <!-- Left ~70%: Circular Flow Diagram Panel -->
-        <section id="diagram-panel" class="panel diagram-panel" aria-label="경제 활동 순환 도식 영역"></section>
+        <!-- Left Simulation Panel (1P: Full Circular Diagram / 2P: 50:50 Split [2D Story Animation | Circular Diagram]) -->
+        <section id="diagram-panel" class="panel diagram-panel" aria-label="경제 활동 순환 시뮬레이션 영역">
+          <div id="story-stage-pane" class="story-stage-pane" hidden></div>
+          <div id="diagram-canvas-pane" class="diagram-canvas-pane"></div>
+        </section>
 
-        <!-- Right ~30%: Scenario Selection & Control Panel -->
+        <!-- Right: Scenario Selection & Control Panel -->
         <aside id="control-panel" class="panel control-panel" aria-label="상황 선택 및 조작 영역"></aside>
       </main>
 
@@ -117,6 +134,7 @@
   <script src="js/components/icons.js" defer></script>
   <script src="js/components/cardIllustrations.js" defer></script>
   <script src="js/components/diagram.js" defer></script>
+  <script src="js/components/storyAnimator.js" defer></script>
   <script src="js/components/controls.js" defer></script>
   <script src="js/app.js" defer></script>
 </body>
