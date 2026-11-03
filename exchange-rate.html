@@ -387,9 +387,9 @@
   .dc-content .scene-object.is-hidden{display:none}
   .dc-content .scene-wrap .scene-caption{display:none}
   .dc-content .scene-results{left:auto;right:20px;top:12px;max-width:none;z-index:5}
-  .dc-content .scene-results .readout.fx-readout{display:inline-flex;align-items:center;gap:12px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:8px 20px;box-shadow:0 4px 12px var(--shadow);max-width:none;white-space:nowrap}
-  .dc-content .scene-results .readout.fx-readout .fx-read-label{color:var(--muted);font-size:16px;font-weight:800;white-space:nowrap;word-break:keep-all}
-  .dc-content .scene-results .readout.fx-readout .dc-output{font-size:22px;font-weight:900;color:var(--accent);white-space:nowrap;line-height:1.2}
+  .dc-content .scene-results .readout.fx-readout{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:7px 16px;box-shadow:0 4px 12px var(--shadow);max-width:none;white-space:nowrap}
+  .dc-content .scene-results .readout.fx-readout .fx-read-label{color:var(--muted);font-size:15px;font-weight:800;white-space:nowrap;word-break:keep-all}
+  .dc-content .scene-results .readout.fx-readout .dc-output{font-size:19px;font-weight:900;color:var(--accent);white-space:nowrap;line-height:1.2}
   .dc-content .scene-results .readout.fx-readout[data-rate-dir="up"]{border-color:var(--warning);background:var(--warning-wash)}
   .dc-content .scene-results .readout.fx-readout[data-rate-dir="up"] .dc-output{color:var(--warning)}
   .dc-content .scene-results .readout.fx-readout[data-rate-dir="down"]{border-color:var(--accent);background:var(--accent-wash)}
@@ -418,17 +418,18 @@
   .dc-content .fx-cond-btn:hover{border-color:var(--accent);color:var(--ink)}
   .dc-content .fx-cond-btn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
 
-  /* 시뮬레이션 패널 상단 탐구 흐름 브레드크럼 바 (상단 카드 테두리와 겹치지 않게 간격 확보) */
-  .dc-content .fx-trail-wrap{position:absolute;left:20px;top:12px;right:310px;z-index:4;pointer-events:none}
+  /* 시뮬레이션 패널 상단 탐구 흐름 브레드크럼 바 (절대 2줄로 줄바꿈되거나 우측 배지와 겹치지 않게 한 줄 고정) */
+  .dc-content .fx-trail-wrap{position:absolute;left:20px;top:12px;right:330px;z-index:4;pointer-events:none}
   .dc-content .fx-trail-wrap[hidden]{display:none}
-  .dc-content .fx-trail-bar{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 15px;border-radius:999px;background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 12px var(--shadow);pointer-events:auto}
-  .dc-content .fx-trail-label{font-size:15px;font-weight:800;color:var(--muted);margin-right:2px;white-space:nowrap}
-  .dc-content .fx-trail-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:15.5px;font-weight:800;background:var(--soft);color:var(--ink);border:1.5px solid var(--line);white-space:nowrap;animation:fx-pop .22s ease-out}
+  .dc-content .fx-trail-bar{display:inline-flex;flex-wrap:nowrap;align-items:center;gap:5px;max-width:100%;overflow-x:auto;scrollbar-width:none;padding:6px 13px;border-radius:999px;background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 12px var(--shadow);pointer-events:auto}
+  .dc-content .fx-trail-bar::-webkit-scrollbar{display:none}
+  .dc-content .fx-trail-label{font-size:14px;font-weight:800;color:var(--muted);margin-right:2px;white-space:nowrap;flex:none}
+  .dc-content .fx-trail-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:14px;font-weight:800;background:var(--soft);color:var(--ink);border:1.5px solid var(--line);white-space:nowrap;flex:none;animation:fx-pop .22s ease-out}
   .dc-content .fx-trail-chip.is-factor{background:var(--accent-wash);border-color:var(--accent);color:var(--accent)}
   .dc-content .fx-trail-chip.is-done{background:var(--success-wash);border-color:var(--success);color:var(--success)}
   .dc-content .fx-trail-chip.is-final-up{background:var(--warning-wash);border-color:var(--warning);color:var(--warning)}
   .dc-content .fx-trail-chip.is-final-down{background:var(--accent-wash);border-color:var(--accent);color:var(--accent)}
-  .dc-content .fx-trail-arrow{color:var(--muted);font-size:15px;font-weight:800}
+  .dc-content .fx-trail-arrow{color:var(--muted);font-size:13px;font-weight:800;flex:none}
 
   /* 질문 등장 시 그래프를 가리지 않고 하단 저작권 바와도 겹치지 않는 하단 플로팅 독(Floating Dock) 질문 카드 */
   .dc-content .fx-sim-backdrop{position:absolute;inset:0;z-index:6;background:none;display:flex;align-items:flex-end;justify-content:center;padding:18px 28px 54px;pointer-events:none;animation:fx-fade .18s ease-out}
@@ -2194,7 +2195,7 @@ function createContentEngine(ctx) {
         ];
         if (st.step >= 2) {
           trailNodes.push(frameH('span', { 'class': 'fx-trail-arrow', text: '→' }));
-          trailNodes.push(frameH('span', { 'class': 'fx-trail-chip is-done', text: '✓ ' + (exp.s1 === 'demand' ? '외화의 수요' : '외화의 공급') }));
+          trailNodes.push(frameH('span', { 'class': 'fx-trail-chip is-done', text: '✓ ' + (exp.s1 === 'demand' ? '외화 수요' : '외화 공급') }));
         }
         if (st.step >= 3) {
           trailNodes.push(frameH('span', { 'class': 'fx-trail-arrow', text: '→' }));
@@ -2202,7 +2203,7 @@ function createContentEngine(ctx) {
         }
         if (st.step >= 4) {
           trailNodes.push(frameH('span', { 'class': 'fx-trail-arrow', text: '→' }));
-          trailNodes.push(frameH('span', { 'class': 'fx-trail-chip is-done', text: '✓ 곡선 ' + (exp.s3 === 'right' ? '오른쪽 이동 →' : '← 왼쪽 이동') }));
+          trailNodes.push(frameH('span', { 'class': 'fx-trail-chip is-done', text: '✓ ' + (exp.s3 === 'right' ? '오른쪽 이동 →' : '← 왼쪽 이동') }));
         }
         if (st.step >= 5) {
           trailNodes.push(frameH('span', { 'class': 'fx-trail-arrow', text: '→' }));
