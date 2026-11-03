@@ -386,8 +386,8 @@
   .dc-content.ui-duclass #activity-frame .content-head .content-title{font-size:28px;line-height:1.3}
   .dc-content .scene-object.is-hidden{display:none}
   .dc-content .scene-wrap .scene-caption{display:none}
-  .dc-content .scene-results{left:auto;right:20px;top:16px;max-width:none;z-index:5}
-  .dc-content .scene-results .readout.fx-readout{display:inline-flex;align-items:center;gap:12px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:10px 20px;box-shadow:0 6px 16px var(--shadow);max-width:none;white-space:nowrap}
+  .dc-content .scene-results{left:auto;right:20px;top:12px;max-width:none;z-index:5}
+  .dc-content .scene-results .readout.fx-readout{display:inline-flex;align-items:center;gap:12px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:8px 20px;box-shadow:0 4px 12px var(--shadow);max-width:none;white-space:nowrap}
   .dc-content .scene-results .readout.fx-readout .fx-read-label{color:var(--muted);font-size:16px;font-weight:800;white-space:nowrap;word-break:keep-all}
   .dc-content .scene-results .readout.fx-readout .dc-output{font-size:22px;font-weight:900;color:var(--accent);white-space:nowrap;line-height:1.2}
   .dc-content .scene-results .readout.fx-readout[data-rate-dir="up"]{border-color:var(--warning);background:var(--warning-wash)}
@@ -418,10 +418,10 @@
   .dc-content .fx-cond-btn:hover{border-color:var(--accent);color:var(--ink)}
   .dc-content .fx-cond-btn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
 
-  /* 시뮬레이션 패널 상단 탐구 흐름 브레드크럼 바 (시작 후 표시, 본문 16px 이상) */
-  .dc-content .fx-trail-wrap{position:absolute;left:20px;top:16px;right:310px;z-index:4;pointer-events:none}
+  /* 시뮬레이션 패널 상단 탐구 흐름 브레드크럼 바 (상단 카드 테두리와 겹치지 않게 간격 확보) */
+  .dc-content .fx-trail-wrap{position:absolute;left:20px;top:12px;right:310px;z-index:4;pointer-events:none}
   .dc-content .fx-trail-wrap[hidden]{display:none}
-  .dc-content .fx-trail-bar{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 14px var(--shadow);pointer-events:auto}
+  .dc-content .fx-trail-bar{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 15px;border-radius:999px;background:var(--surface);border:2px solid var(--line);box-shadow:0 4px 12px var(--shadow);pointer-events:auto}
   .dc-content .fx-trail-label{font-size:15px;font-weight:800;color:var(--muted);margin-right:2px;white-space:nowrap}
   .dc-content .fx-trail-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:15.5px;font-weight:800;background:var(--soft);color:var(--ink);border:1.5px solid var(--line);white-space:nowrap;animation:fx-pop .22s ease-out}
   .dc-content .fx-trail-chip.is-factor{background:var(--accent-wash);border-color:var(--accent);color:var(--accent)}
@@ -2394,9 +2394,9 @@ function createContentEngine(ctx) {
 
     const padX = Math.max(18, Math.round(W * 0.03));
     const cardX = padX;
-    const cardY = 68;
+    const cardY = 74;
     const cardW = W - padX * 2;
-    const cardH = Math.max(240, H - cardY - 46);
+    const cardH = Math.max(240, H - cardY - 40);
 
     g.fillStyle = colors.surface;
     fillRoundRect(g, cardX, cardY, cardW, cardH, 16);
@@ -2404,30 +2404,32 @@ function createContentEngine(ctx) {
     g.lineWidth = 1.5;
     strokeRoundRect(g, cardX, cardY, cardW, cardH, 16);
 
-    // 카드 상단 현재 선택 요인 및 시작 전 안내 표시 (가이드 기준: 핵심 설명 22~24px, 본문 안내 18px)
+    // 카드 상단 현재 선택 요인 및 시작 전 안내 표시 (그래프 위치가 흔들리지 않도록 상단 헤더 고정)
     g.textAlign = 'left';
     g.textBaseline = 'middle';
     g.fillStyle = colors.ink;
     g.font = '800 22px ' + fontBase;
     const condTitle = st.factorChange === 'inc' ? f.incTitle : f.decTitle;
-    g.fillText(f.icon + ' ' + condTitle + '에 따른 외화 시장 그래프', cardX + 26, cardY + 34);
+    const titleStr = f.icon + ' ' + condTitle + '에 따른 외화 시장 그래프';
+    g.fillText(titleStr, cardX + 26, cardY + 32);
 
     if (st.step === 0) {
       g.fillStyle = colors.accent;
-      g.font = '700 18px ' + fontBase;
-      g.fillText('오른쪽 제어판에서 요인을 고른 뒤 [▶ 시작] 버튼을 눌러 탐구를 시작하세요.', cardX + 26, cardY + 64);
+      g.font = '700 16.5px ' + fontBase;
+      g.textAlign = 'right';
+      g.fillText('오른쪽 제어판에서 요인을 고른 뒤 [▶ 시작]을 눌러 보세요', cardX + cardW - 26, cardY + 32);
+      g.textAlign = 'left';
     }
 
-    // 그래프 축 내부 좌표 (하단 플로팅 질문 독이 떠도 그래프와 축 라벨이 100% 선명하게 보이도록 상단 배치)
-    const hasBottomDock = st.step >= 1;
-    const bottomReserve = hasBottomDock ? 142 : 46;
-    const topStart = st.step === 0 ? 86 : 62;
+    // 그래프 축 내부 좌표 (시작 전/후 언제나 동일한 고정 위치! x축과 수요·공급곡선을 위쪽에 배치해 하단 질문 카드 자리 상시 확보)
+    const topStart = 66;
+    const bottomReserve = 148;
     const availH = Math.max(180, cardH - topStart - bottomReserve);
     const maxGraphW = Math.min(cardW - 220, 620);
-    const maxGraphH = Math.max(170, Math.min(availH, 360));
+    const maxGraphH = Math.max(175, Math.min(availH, 340));
     const gx0 = Math.round(cardX + (cardW - maxGraphW) / 2 + 44);
     const gx1 = gx0 + maxGraphW;
-    const gy0 = Math.round(cardY + topStart + (availH - maxGraphH) / 2);
+    const gy0 = Math.round(cardY + topStart);
     const gy1 = gy0 + maxGraphH;
     const gw = gx1 - gx0;
     const gh = gy1 - gy0;
