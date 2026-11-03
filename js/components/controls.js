@@ -17,7 +17,15 @@
 
       this.container.innerHTML = `
         <div class="control-top">
-          <h2 class="control-heading">상황 선택</h2>
+          <div class="control-heading-row">
+            <h2 class="control-heading">상황 선택</h2>
+            <button type="button" id="btn-collapse-sidebar" class="btn-collapse-sidebar" title="상황 선택 패널 접기">
+              <span>접기</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
 
           <section class="market-group" aria-labelledby="group-product-title">
             <h3 id="group-product-title" class="market-group-title">생산물 시장</h3>
@@ -80,11 +88,20 @@
       this.btnExecute = this.container.querySelector("#btn-execute");
       this.btnReplay = this.container.querySelector("#btn-replay");
       this.btnReset = this.container.querySelector("#btn-reset");
+      this.btnCollapseSidebar = this.container.querySelector("#btn-collapse-sidebar");
       this.groupProductTitle = this.container.querySelector("#group-product-title");
       this.groupFactorTitle = this.container.querySelector("#group-factor-title");
 
       // Initially hide market group titles until Step 1 answer is selected
       this.setMarketTitlesRevealed(null);
+
+      if (this.btnCollapseSidebar) {
+        this.btnCollapseSidebar.addEventListener("click", () => {
+          if (typeof this.callbacks.onCollapseSidebar === "function") {
+            this.callbacks.onCollapseSidebar();
+          }
+        });
+      }
 
       this.btnExecute.addEventListener("click", () => {
         if (typeof this.callbacks.onExecute === "function") {

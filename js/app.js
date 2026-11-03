@@ -14,6 +14,7 @@
       this.controlContainer = document.getElementById("control-panel");
 
       this.currentPage = 1;
+      this.sidebarCollapsed = false;
       this.selectedScenarioId = null;
       this.executionCount = 0;
 
@@ -40,9 +41,12 @@
           onSelectScenario: (id) => this.selectScenario(id),
           onExecute: () => this.executeTransaction(),
           onReplay: () => this.replayTransaction(),
-          onReset: () => this.resetSimulator()
+          onReset: () => this.resetSimulator(),
+          onCollapseSidebar: () => this.setSidebarCollapsed(true)
         }
       );
+
+      this.initSidebarCollapseControls();
 
       // Sync right-panel market heading reveal with diagram interactive state
       this.diagram.onStateChange = () => {
@@ -67,6 +71,57 @@
           }
         }
       });
+    }
+
+    initSidebarCollapseControls() {
+      this.collapsedOverlay = document.getElementById("collapsed-sidebar-Controls");
+      this.btnExpandSidebar = document.getElementById("btn-expand-sidebar");
+      this.expandSidebarLabel = document.getElementById("expand-sidebar-label");
+      this.btnQuickExecute = document.getElementById("btn-quick-execute");
+      this.btnQuickReplay = document.getElementById("btn-quick-replay");
+      this.btnQuickReset = document.getElementById("btn-quick-reset");
+
+      if (this.btnExpandSidebar) {
+        this.btnExpandSidebar.addEventListener("click", () => this.setSidebarCollapsed(false));
+      }
+      if (this.btnQuickExecute) {
+        this.btnQuickExecute.addEventListener("click", () => this.executeTransaction());
+      }
+      if (this.btnQuickReplay) {
+        this.btnQuickReplay.addEventListener("click", () => this.replayTransaction());
+      }
+      if (this.btnQuickReset) {
+        this.btnQuickReset.addEventListener("click", () => this.resetSimulator());
+      }
+    }
+
+    setSidebarCollapsed(collapsed) {
+      this.sidebarCollapsed = Boolean(collapsed);
+      if (this.stageEl) {
+        this.stageEl.setAttribute("data-sidebar-collapsed", this.sidebarCollapsed ? "true" : "false");
+      }
+      if (this.collapsedOverlay) {
+        if (this.sidebarCollapsed) {
+          this.collapsedOverlay.removeAttribute("hidden");
+        } else {
+          this.collapsedOverlay.setAttribute("hidden", "");
+        }
+      }
+      this.updateCollapsedQuickState();
+    }
+
+    updateCollapsedQuickState() {
+      const scenario = this.selectedScenarioId
+        ? this.data.getScenarioById(this.selectedScenarioId)
+        : null;
+      if (this.expandSidebarLabel) {
+        this.expandSidebarLabel.textContent = scenario
+          ? `상황 선택 (${scenario.title})`
+          : "상황 선택 펼치기";
+      }
+      const hasSelection = Boolean(this.selectedScenarioId);
+      if (this.btnQuickExecute) this.btnQuickExecute.disabled = !hasSelection;
+      if (this.btnQuickReplay) this.btnQuickReplay.disabled = !hasSelection;
     }
 
     initPageSwitcher() {
@@ -107,6 +162,8 @@
 
       if (this.currentPage === 2) {
         if (this.storyPane) this.storyPane.removeAttribute("hidden");
+        // Default to collapsed sidebar in 2P so Story Animation + Diagram get the full 50:50 width
+        this.setSidebarCollapsed(true);
         if (!this.selectedScenarioId) {
           this.selectedScenarioId = this.data.DEFAULT_SCENARIO_ID;
           this.controls.updateSelection(this.selectedScenarioId);
@@ -117,13 +174,16 @@
         if (this.storyAnimator) {
           this.storyAnimator.setScenario(scenario);
         }
+        this.updateCollapsedQuickState();
       } else {
         if (this.storyPane) this.storyPane.setAttribute("hidden", "");
+        this.setSidebarCollapsed(false);
         const scenario = this.selectedScenarioId
           ? this.data.getScenarioById(this.selectedScenarioId)
           : null;
         this.diagram.applyScenario(scenario);
         this.controls.setMarketTitlesRevealed(null);
+        this.updateCollapsedQuickState();
       }
     }
 
@@ -166,6 +226,7 @@
 
       this.selectedScenarioId = scenario.id;
       this.controls.updateSelection(this.selectedScenarioId);
+      this.updateCollapsedQuickState();
 
       if (this.currentPage === 2) {
         this.controls.setMarketTitlesRevealed("both");
@@ -207,6 +268,9 @@
       this.executionCount += 1;
 
       if (this.currentPage === 2 && this.storyAnimator) {
+        if (!this.sidebarCollapsed) {
+          this.setSidebarCollapsed(true);
+        }
         if (this.selectedScenarioId === "bread") {
           this.storyAnimator.playFullStory();
         } else {
@@ -248,6 +312,7 @@
       this.controls.updateSelection(null);
       this.controls.setMarketTitlesRevealed(this.currentPage === 2 ? "both" : null);
       this.diagram.applyScenario(null);
+      this.updateCollapsedQuickState();
     }
 
     /**

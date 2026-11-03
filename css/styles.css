@@ -120,7 +120,7 @@ body {
   display: none !important;
 }
 
-/* On Page 2 (Story + Diagram Split View), give the left simulation panel 76% width so both 2D Story and Diagram are spacious */
+/* On Page 2 (Story + Diagram Split View), give the left simulation panel 76% width when sidebar is open */
 .simulator-stage[data-page="2"] .diagram-panel {
   flex: 0 0 calc(76% - (var(--panel-gap) / 2));
 }
@@ -130,13 +130,34 @@ body {
   padding: clamp(12px, 1.2vw, 18px);
 }
 
+/* When Right Sidebar is Collapsed -> Left Simulation Panel expands to 100% width */
+.simulator-stage[data-sidebar-collapsed="true"] .simulator-workspace {
+  gap: 0;
+}
+
+.simulator-stage[data-sidebar-collapsed="true"] .diagram-panel {
+  flex: 1 1 100% !important;
+  max-width: 100%;
+}
+
+.simulator-stage[data-sidebar-collapsed="true"] .control-panel {
+  flex: 0 0 0px !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border-width: 0 !important;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .control-panel {
   flex: 0 0 calc(var(--right-panel-width) - (var(--panel-gap) / 2));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: clamp(14px, 1.5vw, 24px);
-  transition: flex-basis 0.24s ease, padding 0.24s ease;
+  transition: flex-basis 0.24s ease, padding 0.24s ease, opacity 0.2s ease;
 }
 
 /* SVG Circular Flow Diagram */
@@ -433,13 +454,116 @@ body {
   padding-bottom: clamp(12px, 1.5vh, 18px);
 }
 
+.control-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
 .control-heading {
   font-size: clamp(21px, 1.75vw, 27px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.02em;
   line-height: 1.2;
-  margin-bottom: 2px;
+}
+
+.btn-collapse-sidebar {
+  appearance: none;
+  font-family: var(--font-sans);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 5px 11px 5px 12px;
+  border-radius: 999px;
+  border: 1.5px solid #cbd5e1;
+  background-color: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.btn-collapse-sidebar:hover {
+  background-color: #eff6ff;
+  border-color: #60a5fa;
+  color: #1d4ed8;
+}
+
+/* Floating Expand Tab & Quick Playback Bar when Right Sidebar is Collapsed */
+.collapsed-sidebar-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.collapsed-sidebar-overlay[hidden] {
+  display: none !important;
+}
+
+.btn-expand-sidebar {
+  pointer-events: auto;
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  appearance: none;
+  font-family: var(--font-sans);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 15px 8px 11px;
+  border-radius: 999px;
+  border: 1.5px solid #93c5fd;
+  background-color: #ffffff;
+  color: #1d4ed8;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.1);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-expand-sidebar:hover {
+  background-color: #eff6ff;
+  border-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.18);
+}
+
+.collapsed-quick-actions {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1.5px solid #cbd5e1;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.btn-quick-action {
+  width: auto !important;
+  height: 40px !important;
+  padding: 0 14px !important;
+  font-size: 14px !important;
+  border-radius: 11px !important;
+  white-space: nowrap;
+}
+
+.btn-quick-action .btn-icon {
+  width: 17px;
+  height: 17px;
 }
 
 .market-group {
