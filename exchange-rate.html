@@ -2419,6 +2419,25 @@ function createContentEngine(ctx) {
       g.textAlign = 'right';
       g.fillText('오른쪽 제어판에서 요인을 고른 뒤 [▶ 시작]을 눌러 보세요', cardX + cardW - 26, cardY + 32);
       g.textAlign = 'left';
+    } else if (anim.shiftProgress > 0.25) {
+      // 곡선 이동 배지는 그래프 위 곡선 라벨(수요′/공급′)과 절대 겹치지 않도록 카드 헤더 우측에 깔끔하게 배치
+      const isDemandTargetHeader = exp.s1 === 'demand';
+      const targetColorHeader = isDemandTargetHeader ? colors.accent : colors.warning;
+      const moveText = exp.s3 === 'right' ? (f.curveLabel + ' 증가 (곡선 오른쪽 이동 →)') : ('(← 곡선 왼쪽 이동) ' + f.curveLabel + ' 감소');
+      g.font = '800 15.5px ' + fontBase;
+      const tw = g.measureText(moveText).width + 26;
+      const bx = cardX + cardW - 26 - tw;
+      const by = cardY + 16;
+      g.fillStyle = isDemandTargetHeader ? colors.accentWash : colors.warningWash;
+      fillRoundRect(g, bx, by, tw, 32, 16);
+      g.strokeStyle = targetColorHeader;
+      g.lineWidth = 1.8;
+      strokeRoundRect(g, bx, by, tw, 32, 16);
+      g.fillStyle = targetColorHeader;
+      g.textAlign = 'center';
+      g.textBaseline = 'middle';
+      g.fillText(moveText, bx + tw / 2, by + 16);
+      g.textAlign = 'left';
     }
 
     // 그래프 축 내부 좌표 (시작 전/후 언제나 동일한 고정 위치! x축과 수요·공급곡선을 위쪽에 배치해 하단 질문 카드 자리 상시 확보)
@@ -2518,13 +2537,14 @@ function createContentEngine(ctx) {
           g.strokeStyle = rateColor;
           g.fillStyle = rateColor;
           g.lineWidth = 3.5;
-          drawArrow(g, gx0 - 20, yStart, gx0 - 20, yEnd, 10);
+          drawArrow(g, gx0 - 16, yStart, gx0 - 16, yEnd, 9);
 
-          g.font = '800 17px ' + fontBase;
+          g.font = '800 16px ' + fontBase;
           g.textAlign = 'right';
           g.textBaseline = 'middle';
           const rateLabel = exp.s4 === 'up' ? '환율 상승 ▲' : '환율 하락 ▼';
-          g.fillText(rateLabel, gx0 - 30, yEnd);
+          const labelY = exp.s4 === 'up' ? Math.min(yEnd, yStart - 26) : Math.max(yEnd, yStart + 26);
+          g.fillText(rateLabel, gx0 - 26, labelY);
         }
       }
     }
@@ -2606,51 +2626,34 @@ function createContentEngine(ctx) {
             g.restore();
           }
         });
-
-        const midU = 0.34 + curShiftU * 0.5;
-        const midV = curveV(exp.s1, 0.34, curShiftU * 0.5) + 0.09;
-        const moveText = exp.s3 === 'right' ? (f.curveLabel + ' 증가 (오른쪽 이동 →)') : ('(← 왼쪽 이동) ' + f.curveLabel + ' 감소');
-        g.font = '800 15.5px ' + fontBase;
-        const tw = g.measureText(moveText).width + 22;
-        const bx = toX(midU) - tw / 2;
-        const by = toY(midV) - 16;
-        g.fillStyle = colors.surface;
-        fillRoundRect(g, bx, by, tw, 32, 16);
-        g.strokeStyle = targetColor;
-        g.lineWidth = 2;
-        strokeRoundRect(g, bx, by, tw, 32, 16);
-        g.fillStyle = targetColor;
-        g.textAlign = 'center';
-        g.textBaseline = 'middle';
-        g.fillText(moveText, toX(midU), by + 16);
       }
     }
 
-    // 5. 곡선 이름 라벨 (가이드 기준: 18px)
-    const dTopU = 0.14;
+    // 5. 곡선 이름 라벨 (가이드 기준: 18px, 곡선 끝점 위 여백에 겹침 없이 표시)
+    const dTopU = 0.12;
     const dTopV = curveV('demand', dTopU, 0);
     g.font = '800 18px ' + fontBase;
     g.textAlign = 'center';
     g.textBaseline = 'bottom';
     g.fillStyle = colors.accent;
-    g.fillText('수요(D)', toX(dTopU), toY(dTopV) - 8);
+    g.fillText('수요(D)', toX(dTopU), toY(dTopV) - 10);
 
-    const sTopU = 0.86;
+    const sTopU = 0.88;
     const sTopV = curveV('supply', sTopU, 0);
     g.fillStyle = colors.warning;
-    g.fillText('공급(S)', toX(sTopU), toY(sTopV) - 8);
+    g.fillText('공급(S)', toX(sTopU), toY(sTopV) - 10);
 
     if (anim.shiftProgress > 0.4) {
       if (isDemandTarget) {
-        const dNewU = Math.max(0.08, Math.min(0.88, dTopU + curShiftU));
+        const dNewU = Math.max(0.08, Math.min(0.88, 0.12 + curShiftU));
         const dNewV = curveV('demand', dNewU, curShiftU);
         g.fillStyle = colors.accent;
-        g.fillText('수요′(D′)', toX(dNewU), toY(dNewV) - 8);
+        g.fillText('수요′(D′)', toX(dNewU), toY(dNewV) - 10);
       } else {
-        const sNewU = Math.max(0.12, Math.min(0.92, sTopU + curShiftU));
+        const sNewU = Math.max(0.12, Math.min(0.92, 0.88 + curShiftU));
         const sNewV = curveV('supply', sNewU, curShiftU);
         g.fillStyle = colors.warning;
-        g.fillText('공급′(S′)', toX(sNewU), toY(sNewV) - 8);
+        g.fillText('공급′(S′)', toX(sNewU), toY(sNewV) - 10);
       }
     }
 
@@ -2692,7 +2695,7 @@ function createContentEngine(ctx) {
       g.fillText('균형 거래량', toX(eq0.u), gy1 + 10);
     }
 
-    // 7. 균형점 E 및 새로운 균형점 E'
+    // 7. 균형점 E 및 새로운 균형점 E' (곡선과 겹치지 않는 방향에 라벨 배치)
     g.fillStyle = colors.ink;
     g.beginPath();
     g.arc(toX(eq0.u), toY(eq0.v), 6.5, 0, Math.PI * 2);
@@ -2704,9 +2707,9 @@ function createContentEngine(ctx) {
     if (st.labels) {
       g.fillStyle = colors.ink;
       g.font = '800 17px ' + fontBase;
-      g.textAlign = 'left';
+      g.textAlign = 'center';
       g.textBaseline = 'bottom';
-      g.fillText('E', toX(eq0.u) + 10, toY(eq0.v) - 5);
+      g.fillText('E', toX(eq0.u), toY(eq0.v) - 11);
     }
 
     if (anim.shiftProgress > 0.08) {
@@ -2726,9 +2729,9 @@ function createContentEngine(ctx) {
 
       g.fillStyle = eqColor;
       g.font = '800 17.5px ' + fontBase;
-      g.textAlign = 'left';
+      g.textAlign = 'center';
       g.textBaseline = 'bottom';
-      g.fillText('E′', toX(eq1.u) + 10, toY(eq1.v) - 5);
+      g.fillText('E′', toX(eq1.u), toY(eq1.v) - 12);
 
       if (anim.rateProgress > 0.1) {
         g.save();
