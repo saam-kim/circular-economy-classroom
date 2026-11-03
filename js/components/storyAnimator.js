@@ -146,17 +146,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Bottom Live Narration Caption Bar -->
-          <div class="story-caption-bar" id="story-caption-bar" data-flow-type="idle">
-            <div class="story-caption-header">
-              <span class="story-caption-badge" id="story-caption-badge">준비 완료 · ▶ 거래 실행을 눌러보세요</span>
-              <span class="story-caption-step-indicator" id="story-caption-step-indicator">총 4단계 연속 순환</span>
-            </div>
-            <p class="story-caption-text" id="story-caption-text">
-              우측 하단 <b>▶ 거래 실행</b> 버튼(또는 상단 ①~④ 단계 버튼)을 누르면 <b>빵집 이야기 애니메이션</b>과 오른쪽 <b>경제 순환 모형</b>이 타이밍에 맞춰 함께 움직입니다.
-            </p>
-          </div>
         </div>
       `;
 
