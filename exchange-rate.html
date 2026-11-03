@@ -430,26 +430,26 @@
   .dc-content .fx-trail-chip.is-final-down{background:var(--accent-wash);border-color:var(--accent);color:var(--accent)}
   .dc-content .fx-trail-arrow{color:var(--muted);font-size:15px;font-weight:800}
 
-  /* 질문 등장 시 그래프를 가리지 않는 하단 플로팅 독(Floating Dock) 질문 카드 (교실 핵심 질문 21px, 버튼 18px·54px) */
-  .dc-content .fx-sim-backdrop{position:absolute;inset:0;z-index:6;background:linear-gradient(180deg,rgba(15,23,42,0) 0%,rgba(15,23,42,0) 58%,rgba(37,99,235,0.08) 100%);display:flex;align-items:flex-end;justify-content:center;padding:18px 28px 20px;pointer-events:none;animation:fx-fade .2s ease-out}
+  /* 질문 등장 시 그래프를 가리지 않고 하단 저작권 바와도 겹치지 않는 하단 플로팅 독(Floating Dock) 질문 카드 */
+  .dc-content .fx-sim-backdrop{position:absolute;inset:0;z-index:6;background:none;display:flex;align-items:flex-end;justify-content:center;padding:18px 28px 54px;pointer-events:none;animation:fx-fade .18s ease-out}
   .dc-content .fx-sim-backdrop[hidden]{display:none}
-  .dc-content .fx-sim-modal{pointer-events:auto;width:min(900px,100%);background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);border:2.5px solid var(--accent);border-radius:20px;padding:16px 22px;box-shadow:0 14px 36px rgba(37,99,235,0.18),0 4px 12px rgba(15,23,42,0.08);display:grid;gap:10px;animation:fx-pop .24s ease-out}
+  .dc-content .fx-sim-modal{pointer-events:auto;width:min(900px,100%);background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);border:2.5px solid var(--accent);border-radius:20px;padding:14px 22px;box-shadow:0 12px 32px rgba(37,99,235,0.16),0 4px 12px rgba(15,23,42,0.08);display:grid;gap:8px;animation:fx-pop .2s ease-out}
   .dc-content.theme-dark .fx-sim-modal{background:rgba(23,31,46,0.96)}
   .dc-content .fx-sim-dock-main{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-  .dc-content .fx-sim-dock-info{flex:1 1 360px;min-width:0;display:grid;gap:6px}
+  .dc-content .fx-sim-dock-info{flex:1 1 360px;min-width:0;display:grid;gap:5px}
   .dc-content .fx-sim-modal-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .dc-content .fx-sim-stepbadge{display:inline-flex;align-items:center;justify-content:center;padding:4px 12px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:14.5px;font-weight:800;white-space:nowrap}
   .dc-content .fx-sim-factor-tag{font-size:15px;font-weight:800;color:var(--muted)}
-  .dc-content .fx-sim-q{margin:0;font-size:20.5px;font-weight:800;color:var(--ink);line-height:1.4;word-break:keep-all;text-align:left;padding:0}
-  .dc-content .fx-sim-choices{flex:0 0 auto;display:grid;grid-template-columns:repeat(2,minmax(176px,1fr));gap:10px}
-  .dc-content .fx-sim-btn{font:inherit;min-height:54px;padding:10px 20px;border:2px solid var(--line);border-radius:14px;background:var(--soft);color:var(--ink);cursor:pointer;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:all .15s}
+  .dc-content .fx-sim-q{margin:0;font-size:20px;font-weight:800;color:var(--ink);line-height:1.38;word-break:keep-all;text-align:left;padding:0}
+  .dc-content .fx-sim-choices{flex:0 0 auto;display:grid;grid-template-columns:repeat(2,minmax(172px,1fr));gap:10px}
+  .dc-content .fx-sim-btn{font:inherit;min-height:52px;padding:10px 20px;border:2px solid var(--line);border-radius:14px;background:var(--soft);color:var(--ink);cursor:pointer;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:all .15s}
   .dc-content .fx-sim-btn:hover{border-color:var(--accent);background:var(--accent-wash);color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 14px var(--shadow)}
   .dc-content .fx-sim-btn.is-wrong{border-color:var(--warning);background:var(--warning-wash);color:var(--warning);animation:fx-shake .34s ease}
-  .dc-content .fx-sim-feedback{margin:0;padding:9px 14px;border-radius:11px;font-size:15.5px;font-weight:700;line-height:1.45;word-break:keep-all;text-align:left}
+  .dc-content .fx-sim-feedback{margin:0;padding:8px 14px;border-radius:10px;font-size:15px;font-weight:700;line-height:1.4;word-break:keep-all;text-align:left}
   .dc-content .fx-sim-feedback.is-wrong{background:var(--warning-wash);border:1.5px solid var(--warning);color:var(--warning)}
 
-  /* 애니메이션 진행 중 또는 탐구 완료 시 하단 안내 카드 (본문 18px) */
-  .dc-content .fx-sim-banner{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:5;width:min(880px,calc(100% - 56px));background:var(--surface);border:2.5px solid var(--success);border-radius:18px;padding:14px 22px;box-shadow:0 12px 30px rgba(21,128,61,0.16),0 4px 12px var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;animation:fx-pop .24s ease-out}
+  /* 탐구 완료 시 하단 안내 카드 (저작권 바와 절대 겹치지 않도록 bottom:54px 배치) */
+  .dc-content .fx-sim-banner{position:absolute;left:50%;bottom:54px;transform:translateX(-50%);z-index:5;width:min(880px,calc(100% - 56px));background:var(--surface);border:2.5px solid var(--success);border-radius:18px;padding:13px 22px;box-shadow:0 10px 26px rgba(21,128,61,0.15),0 4px 10px var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:12px;animation:fx-pop .22s ease-out}
   .dc-content .fx-sim-banner[hidden]{display:none}
   .dc-content .fx-sim-banner-text{margin:0;font-size:18px;font-weight:800;color:var(--ink);line-height:1.45;word-break:keep-all}
   .dc-content .fx-sim-banner-sub{display:block;font-size:15.5px;font-weight:700;color:var(--success);margin-top:4px}
@@ -2051,45 +2051,27 @@ function createContentEngine(ctx) {
 
       if (stepNum === 1) {
         st.step = 2;
-        st.modalOpen = false;
-        st.bannerMsg = {
-          main: '정답입니다! 그래프에서 강조된 ' + f.curveLabel + ' 곡선을 확인하세요.',
-          sub: '잠시 후 다음 질문이 나타납니다...'
-        };
+        st.modalOpen = true;
+        st.bannerMsg = null;
         renderSimStageUI();
         draw();
         ensureLoop();
-        clearStepTimer();
-        stepTimer = setTimeout(() => {
-          st.bannerMsg = null;
-          st.modalOpen = true;
-          renderSimStageUI();
-        }, 1250);
       } else if (stepNum === 2) {
         st.step = 3;
         st.modalOpen = true;
+        st.bannerMsg = null;
         renderSimStageUI();
         draw();
         ensureLoop();
       } else if (stepNum === 3) {
         st.step = 4;
-        st.modalOpen = false;
+        st.modalOpen = true;
+        st.bannerMsg = null;
         anim.shiftProgress = 0;
         anim.shiftTarget = 1;
-        const dirWord = choiceVal === 'right' ? '오른쪽' : '왼쪽';
-        st.bannerMsg = {
-          main: '정답입니다! ' + f.curveLabel + ' 곡선이 ' + dirWord + '으로 이동하는 모습을 확인하세요.',
-          sub: '곡선 이동 후 마지막 질문이 나타납니다...'
-        };
         renderSimStageUI();
         draw();
         ensureLoop();
-        clearStepTimer();
-        stepTimer = setTimeout(() => {
-          st.bannerMsg = null;
-          st.modalOpen = true;
-          renderSimStageUI();
-        }, 1450);
       } else if (stepNum === 4) {
         st.step = 5;
         st.modalOpen = false;
@@ -2440,12 +2422,12 @@ function createContentEngine(ctx) {
       g.textAlign = 'left';
     }
 
-    // 그래프 축 내부 좌표 (시작 전/후 언제나 동일한 고정 위치! x축과 수요·공급곡선을 위쪽에 배치해 하단 질문 카드 자리 상시 확보)
-    const topStart = 66;
-    const bottomReserve = 148;
-    const availH = Math.max(180, cardH - topStart - bottomReserve);
+    // 그래프 축 내부 좌표 (시작 전/후 언제나 동일한 고정 위치! x축과 수요·공급곡선을 위쪽에 배치해 하단 질문 카드·완료 배너 자리 상시 확보)
+    const topStart = 58;
+    const bottomReserve = 162;
+    const availH = Math.max(170, cardH - topStart - bottomReserve);
     const maxGraphW = Math.min(cardW - 220, 620);
-    const maxGraphH = Math.max(175, Math.min(availH, 340));
+    const maxGraphH = Math.max(170, Math.min(availH, 325));
     const gx0 = Math.round(cardX + (cardW - maxGraphW) / 2 + 44);
     const gx1 = gx0 + maxGraphW;
     const gy0 = Math.round(cardY + topStart);
